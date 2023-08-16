@@ -1,0 +1,26 @@
+@model Wedding
+
+<div>
+    @await Html.PartialAsync("_Navbar")
+</div>
+
+<h2 class="my-4">@Model.WedderOne & @Model.WedderTwo's Wedding</h2>
+
+<h5 class="my-3">Date: @Model.WeddingDate.ToString("MMM d, yyyy")</h5>
+
+<div>
+    <h5 class="my-3">Guests:</h5>
+    <div class="border border-dark w-25 ms-3">
+        @if (Model.Guests.Count < 1)
+        {
+            <p class="my-3 ms-3">There are currently no guests attending this wedding.</p>
+        }
+        else
+        {
+            @foreach (WeddingGuest i in Model.Guests)
+            {
+                <p class="my-3 ms-3">@i.InvitedGuest?.FirstName @i.InvitedGuest?.LastName</p>
+            }
+        }
+    </div>
+</div>

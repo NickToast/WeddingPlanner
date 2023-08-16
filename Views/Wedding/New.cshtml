@@ -1,0 +1,32 @@
+@model Wedding
+
+<div>
+    @await Html.PartialAsync("_Navbar")
+</div>
+
+<div>
+    <h2>Plan a Wedding</h2>
+    <form asp-controller="Wedding" asp-action="Create" method="post" class="w-50">
+        <div class="mb-3">
+            <label asp-for="WedderOne" class="my-2"></label>
+            <input asp-for="WedderOne" class="form-control"/>
+            <span asp-validation-for="WedderOne" class="text-danger font-weight-bold"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="WedderTwo" class="my-2"></label>
+            <input asp-for="WedderTwo" class="form-control"/>
+            <span asp-validation-for="WedderTwo" class="text-danger font-weight-bold"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="WeddingDate" class="my-2"></label>
+            <input asp-for="WeddingDate" class="form-control"/>
+            <span asp-validation-for="WeddingDate" class="text-danger font-weight-bold"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Address" class="my-2"></label>
+            <input asp-for="Address" class="form-control"/>
+            <span asp-validation-for="Address" class="text-danger font-weight-bold"></span>
+        </div>
+        <button class="btn btn-outline-dark">Create</button>
+    </form>
+</div>

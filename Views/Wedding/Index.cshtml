@@ -1,0 +1,60 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<Wedding>
+
+<div>
+    @await Html.PartialAsync("_Navbar")
+</div>
+
+<div class="text-center">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Wedding of</th>
+                <th>Date</th>
+                <th>Guest Count</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Wedding w in Model)
+            {
+                bool alreadyRSVP = w.Guests.Any(e => e.UserId == Context.Session.GetInt32("UUID") && e.WeddingId == w.WeddingId);
+                <tr class="align-middle">
+                    <td><a asp-controller="Wedding" asp-action="Details" asp-route-weddingId="@w.WeddingId">@w.WedderOne & @w.WedderTwo</a></td>
+                    <td>@w.WeddingDate.ToString("MMM d, yyyy")</td>
+                    <td>@w.Guests.Count</td>
+                    
+                    @if(w.UserId == Context.Session.GetInt32("UUID"))
+                    {
+                        <td>
+                            <form asp-controller="Wedding" asp-action="Delete" asp-route-weddingId="@w.WeddingId">
+                                <button class="btn btn-outline-danger">Delete</button>
+                            </form>
+                        </td>
+                    }
+                    else
+                    {
+                        @if (alreadyRSVP)
+                        {
+                            <td>
+                                <form asp-controller="Wedding" asp-action="RSVP" asp-route-weddingId="@w.WeddingId">
+                                    <button class="btn btn-outline-warning">Un-RSVP</button>
+                                </form>
+                            </td>
+                        }
+                        else 
+                        {
+                            <td>
+                                <form asp-controller="Wedding" asp-action="RSVP" asp-route-weddingId="@w.WeddingId">
+                                    <button class="btn btn-outline-success">RSVP</button>
+                                </form>
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -61,6 +61,7 @@ public class WeddingController : Controller
             return RedirectToAction("Index");
         }
         return View("Details", wedding);
+        
     }
 
     //Delete Wedding
